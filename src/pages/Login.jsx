@@ -1,8 +1,41 @@
 import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
 import { Link } from "react-router-dom";
-import React from "react";
+import React,{ useState } from "react";
+import axios from "axios";
+
  export function Login () {
+
+ const [userentrydata,setuserentrydata] = useState({
+  username : "",
+  password : ""
+ });
+
+ const handleUserEntry =(u) =>{
+  const value = u.target.value;
+  setuserentrydata({
+    ...userentrydata,
+  [u.target.name]: value
+
+  })
+}
+
+  const OnLoginClick = (e) =>{
+    e.preventDefault();
+    const userData = {
+      username: userentrydata.username,
+      password: userentrydata.password
+    };
+
+    console.log (userData);
+    axios.post("http://localhost:3000/user/login", userData).then((response) => {
+      console.log(response.status, response.data.token);
+    });
+
+  }
+
+ 
+
     return (
         <>   
         <Navigation/>
@@ -11,14 +44,17 @@ import React from "react";
         <hr />
         <div class="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
-            <form>
+            <form onSubmit={OnLoginClick}>
               <div class="my-3">
-                <label for="display-4">Email address</label>
+                <label for="display-4">User Name</label>
                 <input
-                  type="email"
+                  type="string"
                   class="form-control"
                   id="floatingInput"
-                  placeholder="name@example.com"
+                  name= "username"
+                  placeholder="Username"
+                  value = {userentrydata.username}
+                  onChange={handleUserEntry}
                 />
               </div>
               <div class="my-3">
@@ -27,7 +63,10 @@ import React from "react";
                   type="password"
                   class="form-control"
                   id="floatingPassword"
+                  name= "password"
+                  value = {userentrydata.password}
                   placeholder="Password"
+                  onChange={handleUserEntry}
                 />
               </div>
               <div className="my-3">
