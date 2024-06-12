@@ -3,8 +3,13 @@ import Navigation from "../components/Navigation";
 import { Link } from "react-router-dom";
 import React,{ useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
  export function Login () {
+
+localStorage.clear();
+
+const navigate = useNavigate();
 
  const [userentrydata,setuserentrydata] = useState({
   username : "",
@@ -29,8 +34,11 @@ import axios from "axios";
 
     console.log (userData);
     axios.post("http://localhost:3000/user/login", userData).then((response) => {
-      console.log(response.status, response.data.token);
-    });
+      if ( response.status === 200 ){
+      localStorage.setItem('token',response.data.token);
+      console.log(localStorage);
+      navigate("/productlisting");
+    }});
 
   }
 

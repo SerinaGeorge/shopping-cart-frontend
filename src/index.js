@@ -5,6 +5,8 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home.jsx';
 import  Login from './pages/Login.jsx';
+import  Register from './pages/Register.jsx';
+import  Productlisting from './pages/Productlisting.jsx';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,6 +16,8 @@ root.render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} /> 
+      <Route path="/productlisting" element={<Productlisting />} />
       {/* <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/cart" element={<Cart />} />

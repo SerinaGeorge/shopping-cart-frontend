@@ -1,6 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 export const Navigation = () => {
+
+
+  var logggedIn;
+  console.log(localStorage.getItem('token'));
+
+
+  if(localStorage.getItem('token') !== null)
+    {
+      logggedIn = true;
+      console.log('login state true');
+    }
+    else{
+      logggedIn = false;
+      console.log('login state false');
+    }
+
+    const [loginstate,setloginstate] = useState(logggedIn);
+    const [logoutstate,setlogoutstate] = useState(!logggedIn);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">
       <div className="container">
@@ -38,9 +56,12 @@ export const Navigation = () => {
             </li>
           </ul>
           <div className="buttons text-center">
-            <NavLink to="/login" className="btn btn-outline-dark m-2">
-              <i className="fa fa-sign-in-alt mr-1"></i> Login
+            <NavLink to="/login" className={`nav-link ${loginstate ? 'disabled' : ''}`}>
+            <button className="btn btn-outline-dark" disabled={loginstate}><i className="fa fa-sign-in-alt mr-1"></i> Login</button>
             </NavLink>
+            <NavLink to="/login" className={`nav-link ${logoutstate ? 'disabled' : ''}`}>
+            <button className="btn btn-outline-dark" disabled={logoutstate}> <i className="fa fa-sign-out-alt mr-1"></i> Logout</button>
+            </NavLink>            
             <NavLink to="/register" className="btn btn-outline-dark m-2">
               <i className="fa fa-user-plus mr-1"></i> Register
             </NavLink>
