@@ -7,6 +7,7 @@ import Home from './pages/Home.jsx';
 import  Login from './pages/Login.jsx';
 import  Register from './pages/Register.jsx';
 import  Productlisting from './pages/Productlisting.jsx';
+import  Productdetails from './pages/Productdetails.jsx';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +19,8 @@ root.render(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} /> 
       <Route path="/productlisting" element={<Productlisting />} />
+      <Route path="/productdetails/:id" element={<Productdetails/>}/>
+
       {/* <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/cart" element={<Cart />} />

@@ -28,7 +28,10 @@ else{
         navigate(path);
 }
 }
-
+const handleRowClick = (id) => {
+  alert(`Row with ID ${id} clicked`);
+  navigate(`/productdetails/${id}`);
+};
     useEffect(() => {
         fetchdata();
 },[]);
@@ -43,20 +46,21 @@ else{
             <tr>
                 <th>Product Name</th>
                 <th>Product Color</th>
-                <th>Product Height</th>
+              { /* <th>Product Height</th>
                 <th>Product Height Metric</th>
                 <th>Product Weight</th>
-                <th>Product Weight Metric</th>
+                <th>Product Weight Metric</th>*/}
             </tr>
-            {productdata.map((val, key) => {
+            {productdata.map((row) => {
                 return (
-                    <tr key={key}>
-                        <td>{val.productName}</td>
-                        <td>{val.productColors}</td>
-                        <td>{val.productHeight}</td>
+                    <tr key={row.productId} onClick={() => handleRowClick(row.productId)} className="clickable-row">
+                        <td>{row.productName}</td>
+                        <td>{row.productColors}</td>
+
+                      {/*  <td>{val.productHeight}</td>
                         <td>{val.productHeightMetrics}</td>
                         <td>{val.productWeight}</td>
-                        <td>{val.productWeightMetrics}</td>
+                        <td>{val.productWeightMetrics}</td>*/}
                         
                     </tr>
                 )
