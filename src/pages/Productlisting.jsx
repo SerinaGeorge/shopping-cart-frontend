@@ -53,7 +53,7 @@ const handleRowClick = (id) => {
             </tr>
             {productdata.map((row) => {
                 return (
-                    <tr key={row.productId} onClick={() => handleRowClick(row.productId)} className="clickable-row">
+                    <tr key={row._id} onClick={() => handleRowClick(row._id)} className="clickable-row">
                         <td>{row.productName}</td>
                         <td>{row.productColors}</td>
 

@@ -8,6 +8,8 @@ import  Login from './pages/Login.jsx';
 import  Register from './pages/Register.jsx';
 import  Productlisting from './pages/Productlisting.jsx';
 import  Productdetails from './pages/Productdetails.jsx';
+import  Adminpage from './pages/Adminpage.jsx';
+import  Userlisting from './pages/Userlisting.jsx';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,7 +22,8 @@ root.render(
       <Route path="/register" element={<Register />} /> 
       <Route path="/productlisting" element={<Productlisting />} />
       <Route path="/productdetails/:id" element={<Productdetails/>}/>
-
+      <Route path="/adminpage" element={<Adminpage/>} />
+      <Route path="/userlisting" element={<Userlisting/>} />
       {/* <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/cart" element={<Cart />} />

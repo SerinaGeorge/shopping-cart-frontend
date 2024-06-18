@@ -5,13 +5,17 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-export function Productdetails(){
+export  function Productdetails(){
     const [productdata,setproductdata] = useState([]);
     const { id } = useParams();
      axios.get("http://localhost:3000/product/products/"+id).then((response) => {
         console.log(JSON.stringify(response.data));
         const productresult = response.data;
+        console.log( "this"+productresult);
+        console.log( "this"+productdata);
+
     setproductdata(productresult);
+    console.log( "this here"+productdata);
 })
 return (
     <>
@@ -21,20 +25,19 @@ return (
         <hr />
         <table id ="products" className="table table-striped table-bordered">
             <tr>
-            
         
                <th>Product Height</th>
                 <th>Product Height Metric</th>
                 <th>Product Weight</th>
                 <th>Product Weight Metric</th>
             </tr>
-            {productdata.map((key,value) => {
+            {productdata.map((product,index) => {
                 return (
-<tr>
-                        <td>{value.productHeight}</td>
-                        <td>{value.productHeightMetrics}</td>
-                        <td>{value.productWeight}</td>
-                        <td>{value.productWeightMetrics}</td>
+                      <tr key={index}>
+                        <td>{product.productHeight}</td>
+                        <td>{product.productHeightMetrics}</td>
+                        <td>{product.productWeight}</td>
+                        <td>{product.productWeightMetrics}</td>
                         
                     </tr>
                 )
