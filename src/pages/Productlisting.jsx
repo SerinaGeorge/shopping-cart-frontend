@@ -17,6 +17,8 @@ export function Productlisting() {
         const accessToken = localStorage.getItem('token');
         console.log("Access Token -> ", accessToken)
         if (accessToken) {
+          axios.defaults.headers.common['acess-token'] = `${accessToken}`;
+    
   await axios.get("http://localhost:3000/product/products").then((response) => {
     console.log(JSON.stringify(response.data));
     const productresult = response.data;
@@ -30,12 +32,25 @@ else{
 }
 const handleRowClick = (id) => {
   alert(`Row with ID ${id} clicked`);
-  navigate(`/productdetails/${id}`);
+  const state  = { productid: id };
+  navigate(`/productdetails`,{state});
 };
     useEffect(() => {
         fetchdata();
 },[]);
 
+const handleDelClick = async(id) => {
+const accessToken = localStorage.getItem('token');
+if (accessToken) {
+  axios.defaults.headers.common['acess-token'] =`${accessToken}`;
+  await axios.delete("http://localhost:3000/Product/products/"+id).then((response) => {
+    const  result = response.data;
+    alert(result.productName);
+    fetchdata();
+});
+}
+
+}
   return (
     <>
       <Navigation />
@@ -53,9 +68,10 @@ const handleRowClick = (id) => {
             </tr>
             {productdata.map((row) => {
                 return (
-                    <tr key={row._id} onClick={() => handleRowClick(row._id)} className="clickable-row">
-                        <td>{row.productName}</td>
+                    <tr key={row._id} className="clickable-row">
+                       <td onClick={() => handleRowClick(row._id)} >{row.productName}</td>
                         <td>{row.productColors}</td>
+                        <td><button className="btn btn-danger btn-sm" onClick={() => handleDelClick(row._id)}>del</button></td>
 
                       {/*  <td>{val.productHeight}</td>
                         <td>{val.productHeightMetrics}</td>
@@ -70,5 +86,6 @@ const handleRowClick = (id) => {
       <Footer />
     </>
   );
+
 }
 export default Productlisting;

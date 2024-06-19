@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 export function Userlisting () {
     
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
     const [userdata,setuserdata] = useState([]);
 
     const fetchdata = async() => {
@@ -28,9 +28,39 @@ else{
      navigate(path);
 }
 }
+
+const handleDelClick = async (id) => {
+
+    const accessToken = localStorage.getItem('token');
+    console.log("Access Token -> ", accessToken)
+    if (accessToken) {
+   axios.defaults.headers.common['acess-token'] = `${accessToken}`;
+   await axios.delete("http://localhost:3000/useradm/user/"+id).then((response) => {
+    const  result = response.data;
+    alert(result.userName);
+    fetchdata();
+})}
+}
+
+/*const handleUpdate =async (id) => {
+
+    const accessToken = localStorage.getItem('token');
+    console.log("Access Token -> ", accessToken)
+    if (accessToken) {
+
+
+   axios.defaults.headers.common['acess-token'] = `${accessToken}`;
+   await axios.put("http://localhost:3000/useradm/user/"+id).then((response) => {
+    const  result = response.data;
+    alert(result.userName);
+    fetchdata();
+})}
+}*/
 const handleRowClick = (id) => {
 alert(`Row with ID ${id} clicked`);
-navigate(`/userdetails/${id}`);
+const state  = { userid: id };
+
+navigate('/userdetails',{ state });
 };
  useEffect(() => {
      fetchdata();
@@ -39,28 +69,31 @@ navigate(`/userdetails/${id}`);
 return (
  <>
    <Navigation />
-   (<div className="container my-3 py-3">
+   <div className="container my-3 py-3">
+
      <h1 className="text-center">Users</h1>
      <hr />
      <table id ="users" className="table table-striped table-bordered">
          <tr>
              <th>User Name</th>
+
              <th> User Type</th>
          
          </tr>
          {userdata.map((row) => {
              return (
-                 <tr key={row._id} onClick={() => handleRowClick(row._id)} className="clickable-row">
-                     <td>{row.userName}</td>
+                 <tr key={row._id} className="clickable-row">
+                     <td onClick={() => handleRowClick(row._id)} >{row.userName}</td>
                      <td>{row.usertype}</td>
-
+                     <td><button className="btn btn-danger btn-sm" onClick={() => handleDelClick(row._id)}>del</button></td>
+                    {/* <td><button className="btn btn-primary btn-sm"/ onClick={() =>handleUpdate(row._id)}>Update</button></td> */}
     
                      
                  </tr>
-             )
+             )  
          })}
      </table>
- </div>);
+ </div>
  <Footer/>
  </>)
 }

@@ -3,12 +3,18 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams,useLocation } from 'react-router-dom';
 
 export  function Productdetails(){
+  const location = useLocation();
     const [productdata,setproductdata] = useState([]);
-    const { id } = useParams();
-     axios.get("http://localhost:3000/product/products/"+id).then((response) => {
+   // const { id } = useParams();
+   const { productid } = location.state || {};
+   const accessToken = localStorage.getItem('token');
+        console.log("Access Token -> ", accessToken)
+        if (accessToken) {
+          axios.defaults.headers.common['acess-token'] = `${accessToken}`;
+     axios.get("http://localhost:3000/product/products/"+productid).then((response) => {
         console.log(JSON.stringify(response.data));
         const productresult = response.data;
         console.log( "this"+productresult);
@@ -47,5 +53,5 @@ return (
       <Footer />
     </>
   )};
-
+}
 export default Productdetails;
