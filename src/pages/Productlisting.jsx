@@ -51,6 +51,12 @@ if (accessToken) {
 }
 
 }
+const handleSellerClick = (id) => {
+  alert(`Row with ID ${id} clicked`);
+  const state  = { userid: id };
+  
+  navigate('/userdetails',{ state });
+  };
   return (
     <>
       <Navigation />
@@ -61,6 +67,8 @@ if (accessToken) {
             <tr>
                 <th>Product Name</th>
                 <th>Product Color</th>
+                <th>seller_id</th>
+                <th></th>
               { /* <th>Product Height</th>
                 <th>Product Height Metric</th>
                 <th>Product Weight</th>
@@ -71,6 +79,7 @@ if (accessToken) {
                     <tr key={row._id} className="clickable-row">
                        <td onClick={() => handleRowClick(row._id)} >{row.productName}</td>
                         <td>{row.productColors}</td>
+                        <td onClick={() =>handleSellerClick(row.sellerId)}>{row.sellerId}</td>
                         <td><button className="btn btn-danger btn-sm" onClick={() => handleDelClick(row._id)}>del</button></td>
 
                       {/*  <td>{val.productHeight}</td>
