@@ -15,6 +15,7 @@ export  function Userdetails(){
     
     //const { id } = useParams();
     const { userid } = location.state || {};
+
     const fetchdata = async() => {
     const accessToken = localStorage.getItem('token');
     console.log('id is ' + userid);
@@ -23,15 +24,18 @@ export  function Userdetails(){
    axios.defaults.headers.common['acess-token'] = `${accessToken}`;
     
 
-     await axios.get("http://localhost:3000/useradm/user/"+userid).then((response) => {
-        console.log(JSON.stringify(response.data));
-        const userresult = response.data;
-        console.log( "this"+ JSON.stringify(userresult));
-        console.log( "this"+userdata);
+     await axios.get("http://localhost:3000/useradm/user/"+userid)
+      .then((response) => {
+        //console.log(JSON.stringify(response.data));
+        //const userresult = response.data;
+        //console.log( "this"+ JSON.stringify(userresult));
+        console.log( "response is  "+ JSON.stringify(response.data));
 
-    setuserdata(userresult);
+       //await setuserdata(userresult);
+       setuserdata(response.data);
+     
     //setusername(userdata[0].userName);
-    console.log( "this here"+userdata);
+       //console.log( "this here"+userdata);
      })
     
 }
@@ -57,7 +61,7 @@ return (
                <th>City</th>
                 
             </tr>
-            {userdata.map((user,index) => {
+            {Array.isArray(userdata) ? (userdata.map((user,index) => {
                 return (
                       <tr key={index}>
                 
@@ -68,7 +72,9 @@ return (
                         
                     </tr>
                 )
-            })}
+            })):(
+              <p>No user data available.</p>
+          )}
         </table>
     </div>);
       <Footer />

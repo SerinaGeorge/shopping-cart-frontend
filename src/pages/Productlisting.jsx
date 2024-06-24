@@ -1,11 +1,15 @@
-import {React ,useEffect, useState} from "react";
+import {React ,useEffect, useState,useContext} from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../components/Cartdetail';
 
 
 export function Productlisting() {
+  const { addToCart } = useContext(CartContext);
+
+  
 
     const navigate = useNavigate();
 
@@ -81,7 +85,7 @@ const handleSellerClick = (id) => {
                         <td>{row.productColors}</td>
                         <td onClick={() =>handleSellerClick(row.sellerId)}>{row.sellerId}</td>
                         <td><button className="btn btn-danger btn-sm" onClick={() => handleDelClick(row._id)}>del</button></td>
-
+                       <td><button className="btn btn-primary" onClick={() => addToCart(row)}><i className="fa fa-cart-plus"></i></button></td>
                       {/*  <td>{val.productHeight}</td>
                         <td>{val.productHeightMetrics}</td>
                         <td>{val.productWeight}</td>

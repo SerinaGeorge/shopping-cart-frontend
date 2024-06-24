@@ -23,6 +23,24 @@ export  function Productdetails(){
     setproductdata(productresult);
     console.log( "this here"+productdata);
 })
+
+
+/*const ShoppingCart = () => {
+  const [cart, setCart] = useState([]);
+  const addToCart = (item) => {
+    setCart((prevCart) => {
+        // Check if item is already in cart
+        const existingItem = prevCart.find(cartItem => cartItem.id === item.id);
+        if (existingItem) {
+            // Update quantity if item already exists
+            return prevCart.map(cartItem =>
+                cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+            );
+        }
+        const removeFromCart = (itemId) => {
+          setCart((prevCart) => prevCart.filter(cartItem => cartItem.id !== itemId));
+      };*/
+
 return (
     <>
       <Navigation />
