@@ -7,9 +7,29 @@ import { CartContext } from '../components/Cartdetail';
 
 
 export function Productlisting() {
-  const { addToCart } = useContext(CartContext);
+ // const { addToCart } = useContext(CartContext);
 
-  
+ const addToCart = (product) => {
+  const accessToken = localStorage.getItem('token');
+        console.log("Access Token -> ", accessToken)
+        if (accessToken) {
+          axios.defaults.headers.common['acess-token'] = `${accessToken}`;
+          console.log ("seller id is " + product.sellerId);
+
+    const cartdata ={"productName":product.productName,
+      "productId":product._id,
+                     "sellerId":product.sellerId,
+                     "quantity":1
+    }
+  console.log ("added to cart");
+  axios.post("http://localhost:3000/cart/",cartdata).then((response) => {
+    if (response.status === 200){
+      
+    }
+
+})
+        }
+      }
 
     const navigate = useNavigate();
 
@@ -101,4 +121,5 @@ const handleSellerClick = (id) => {
   );
 
 }
+
 export default Productlisting;
